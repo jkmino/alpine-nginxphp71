@@ -27,6 +27,7 @@ RUN apk --update add wget \
     musl-utils \
     musl-dev \
     make \
+    gcc \
     libc-utils \
     php7-fpm \
     php7-gd \
@@ -77,6 +78,8 @@ RUN apk --update add wget \
     rm /etc/nginx/nginx.conf
 
 RUN apk --update upgrade --available && sync
+
+RUN pecl install mongodb
 ##NODE
 #RUN npm install
 #RUN npm run lint
