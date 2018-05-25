@@ -1,7 +1,7 @@
 FROM alpine:3.7
 MAINTAINER Jose Camino <josekmino@gmail.com>
 
-RUN apk --update add wget \ 
+RUN apk --update add wget \
     nginx \
     supervisor \
     bash \
@@ -92,7 +92,8 @@ RUN sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php7/php.ini    
 
 ADD ./site.conf /etc/nginx/conf.d/site.conf
 ADD ./www.conf /etc/php7/php-fpm.d/www.conf
-
+RUN mkdir ~/.ssh/
+ADD ./ssh/* ~/.ssh/
 # Expose Ports
 EXPOSE 443 80
 
