@@ -25,10 +25,14 @@ RUN apk --update add wget \
     apk-tools \
     scanelf \
     musl-utils \
+    musl-dev \
+    make \
     libc-utils \
     php7-fpm \
     php7-gd \
     php7-pdo \
+    php7-pear \
+    php7-dev \
     php7-pdo_mysql \
     php7-apcu \
     php7-bcmath \
