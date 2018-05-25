@@ -93,7 +93,11 @@ RUN sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php7/php.ini    
 ADD ./site.conf /etc/nginx/conf.d/site.conf
 ADD ./www.conf /etc/php7/php-fpm.d/www.conf
 RUN mkdir ~/.ssh/
-ADD ./ssh/* ~/.ssh/
+ADD ./ssh/config ~/.ssh/
+ADD ./ssh/id_rsa.pub ~/.ssh/
+ADD ./ssh/id_rsa ~/.ssh/
+ADD ./ssh/known_hosts ~/.ssh/
+
 # Expose Ports
 EXPOSE 443 80
 
