@@ -10,8 +10,24 @@ RUN apk --update add wget \
     vim \
     nodejs \
     git \
+    openssl-dev \
     openssh \
+    linux-headers \
+    libmcrypt-dev \
+    libpng-dev \
+    musl  \
+    busybox \
+    alpine-baselayout \
+    alpine-keys \
+    zlib \
+    libcrypto1.0 \
+    libssl1.0 \
+    apk-tools \
+    scanelf \
+    musl-utils \
+    libc-utils \
     php7-fpm \
+    php7-gd \
     php7-pdo \
     php7-pdo_mysql \
     php7-apcu \
@@ -55,6 +71,7 @@ RUN apk --update add wget \
     mkdir -p /var/log/supervisor   && \
     rm /etc/nginx/nginx.conf
 
+RUN apk --update upgrade --available && sync
 ##NODE
 #RUN npm install
 #RUN npm run lint
