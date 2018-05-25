@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Disable Strict Host checking for non interactive git clones
-mkdir -p -m 0700 /root/.ssh
-echo -e "Host *\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
+#mkdir -p -m 0700 /root/.ssh
+#echo -e "Host *\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
 
 # Tweak nginx to match the workers to cpu's
 procs=$(cat /proc/cpuinfo |grep processor | wc -l)
@@ -23,7 +23,7 @@ printenv | grep -v affinity:container | xargs -I{} echo {} | awk 'BEGIN { FS = "
 if [ -f /var/www/app/phing ]; then
   cd /var/www/app
   /var/www/app/phing ${STAGE}
-fi 
+fi
 
 chown -R nginx:nginx /var/www/app
 
