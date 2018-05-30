@@ -80,6 +80,7 @@ RUN apk --update add wget \
 RUN apk --update upgrade --available && sync
 
 RUN pecl install mongodb
+RUN echo "extension=mongodb.so" >> /etc/php7/php.ini
 ##NODE
 #RUN npm install
 #RUN npm run lint
