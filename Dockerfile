@@ -77,6 +77,8 @@ RUN apk --update add wget \
     mkdir -p /var/log/supervisor   && \
     rm /etc/nginx/nginx.conf
 
+
+RUN apk update && apk add -u yarn
 RUN apk --update upgrade --available && sync
 
 RUN pecl install mongodb
