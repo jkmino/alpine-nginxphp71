@@ -1,5 +1,5 @@
 FROM alpine:3.7
-MAINTAINER Jose Camino <josekmino@gmail.com>
+MAINTAINER Jose Camino <jcamino@mandu.pe>
 
 RUN apk --update add wget \
     nginx \
@@ -72,7 +72,7 @@ RUN apk --update add wget \
     rm /var/cache/apk/*            && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer && \
     mkdir -p /etc/nginx            && \
-    mkdir -p /var/www/app          && \
+    mkdir -p /var/www/app01          && \
     mkdir -p /run/nginx            && \
     mkdir -p /var/log/supervisor   && \
     rm /etc/nginx/nginx.conf
@@ -83,15 +83,10 @@ RUN apk --update upgrade --available && sync
 
 RUN pecl install mongodb
 RUN echo "extension=mongodb.so" >> /etc/php7/php.ini
-##NODE
-#RUN npm install
-#RUN npm run lint
-#RUN npm run ci
 
-
-ADD ./nginx.conf /etc/nginx/nginx.conf
-ADD ./supervisord.conf /etc/supervisord.conf
-ADD ./start.sh /start.sh
+ADD ./configs/nginx.conf /etc/nginx/nginx.conf
+ADD ./configs/supervisord.conf /etc/supervisord.conf
+ADD ./configs/start.sh /start.sh
 ADD ./index.php /var/www/app/index.php
 
 # tweak php-fpm config
@@ -118,14 +113,13 @@ RUN sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php7/php.ini    
     chmod 755 /start.sh                       && \
     find /etc/php7/conf.d/ -name "*.ini" -exec sed -i -re 's/^(\s*)#(.*)/\1;\2/g' {} \;
 
-ADD ./site.conf /etc/nginx/conf.d/site.conf
-ADD ./www.conf /etc/php7/php-fpm.d/www.conf
+ADD ./configs/site_metrics.conf /etc/nginx/conf.d/site.conf
+ADD ./configs/www.conf /etc/php7/php-fpm.d/www.conf
 RUN mkdir ~/.ssh/
-#ADD ./ssh/config ~/.ssh/config
-ADD ./ssh/id_rsa.pub /root/.ssh/id_rsa.pub
-ADD ./ssh/id_rsa /root/.ssh/id_rsa
-ADD ./ssh/known_hosts /root/.ssh/known_hosts
-
+#ADD ./configs/ssh/config ~/.ssh/config
+ADD ./configs/ssh/id_rsa.pub /root/.ssh/id_rsa.pub
+ADD ./configs/ssh/id_rsa /root/.ssh/id_rsa
+ADD ./configs/ssh/known_hosts /root/.ssh/known_hosts
 # Expose Ports
 EXPOSE 443 80
 

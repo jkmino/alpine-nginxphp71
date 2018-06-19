@@ -25,7 +25,7 @@ if [ -f /var/www/app/phing ]; then
   /var/www/app/phing ${STAGE}
 fi
 
-chown -R nginx:nginx /var/www/app
+chown -R nginx:nginx /var/www/
 
 # Run specific config script for a particular container
 if [ -f /usr/local/bin/nginx_env.sh ]; then
